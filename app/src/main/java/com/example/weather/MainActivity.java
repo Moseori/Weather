@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     float current_temp = 0, wind_chill;
     int humid;
     private String[] url = {"http://www.weather.go.kr/weather/observation/currentweather.jsp", "http://aqicn.org/city/seoul/kr/"};
-    TextView tv_temp, tv_wind_chill, tv_humid;
+    TextView tv_temp, tv_wind_chill, tv_humid, tv_find_dust, tv_particle;
     Elements elements;
     int[] particle = {0, 0};
 
@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         tv_temp = findViewById(R.id.tv_temp);
         tv_humid = findViewById(R.id.tv_humid);
         tv_wind_chill = findViewById(R.id.tv_wind_chill);
+        tv_particle = findViewById(R.id.tv_particle);
+        tv_find_dust = findViewById(R.id.tv_fine_dust);
         JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask();
         jsoupAsyncTask.execute();
         findViewById(R.id.tv_country).setOnClickListener(new View.OnClickListener() {
@@ -86,13 +88,33 @@ public class MainActivity extends AppCompatActivity {
                 humid = Integer.parseInt(elements.get(10).text());
                 Log.e("getResult", current_temp + " " + wind_chill + " " + humid);
                 if (current_temp != 0) {
-                    tv_temp.setText(current_temp + "");
+                    tv_temp.setText(current_temp + "℃");
                 }
                 if(wind_chill != 0){
                     tv_wind_chill.setText("체감온도 "+wind_chill+"");
                 }
                 if(humid !=0){
-                    tv_humid.setText(""+humid+"%");
+                    tv_humid.setText("습도 "+humid+"%");
+                }
+                tv_find_dust.setText(particle[1]+"");
+                tv_particle.setText(particle[0]+"");
+                if (particle[0] >150){
+
+                } else if (particle[0] > 80){
+
+                } else if (particle[0] > 30){
+
+                }else{
+
+                }
+                if (particle[1] >75){
+
+                } else if (particle[1] > 35){
+
+                } else if (particle[1] > 15){
+
+                }else{
+
                 }
             }
         }
