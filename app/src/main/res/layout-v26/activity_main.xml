@@ -160,7 +160,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="희성아 여기가"
+                            tools:text="희성아 여기가"
                             android:layout_marginTop="20dp"
                             android:gravity="left"
                             android:textColor="#fff"
