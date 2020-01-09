@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         tv_wind_chill = findViewById(R.id.tv_wind_chill);
         tv_particle = findViewById(R.id.tv_particle);
         tv_find_dust = findViewById(R.id.tv_fine_dust);
+
         JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask();
         jsoupAsyncTask.execute();
         findViewById(R.id.tv_country).setOnClickListener(new View.OnClickListener() {
