@@ -2,10 +2,13 @@ package com.example.weather;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.jsoup.Connection;
@@ -25,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     TextView tv_temp, tv_wind_chill, tv_humid, tv_find_dust, tv_particle;
     Elements elements;
     int[] particle = {0, 0};
+    LinearLayout linearLayout;
+
+    GradientDrawable gradientDrawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         tv_wind_chill = findViewById(R.id.tv_wind_chill);
         tv_particle = findViewById(R.id.tv_particle);
         tv_find_dust = findViewById(R.id.tv_fine_dust);
-
+        linearLayout = findViewById(R.id.layout_main);
         JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask();
         jsoupAsyncTask.execute();
         findViewById(R.id.tv_country).setOnClickListener(new View.OnClickListener() {
@@ -45,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 jsoupAsyncTask.execute();
             }
         });
+
+
 
 
 
@@ -99,20 +107,35 @@ public class MainActivity extends AppCompatActivity {
                 }
                 tv_find_dust.setText(particle[1]+"");
                 tv_particle.setText(particle[0]+"");
+
+                //나쁨
                 if (particle[0] >150){
 
-                } else if (particle[0] > 80){
 
-                } else if (particle[0] > 30){
+
+                } else if (particle[0] > 80){  //보통
+
+                    GradientDrawable g = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[] {Color.BLUE,Color.GREEN});
+                    g.setShape(GradientDrawable.RECTANGLE);
+                    g.setCornerRadius(5);
+                    linearLayout.setBackgroundDrawable(g);
+
+
+
+
+                } else if (particle[0] > 30){ //양호
+
+
+
 
                 }else{
 
                 }
-                if (particle[1] >75){
+                if (particle[1] >75){ //나쁨
 
-                } else if (particle[1] > 35){
+                } else if (particle[1] > 35){ //보통
 
-                } else if (particle[1] > 15){
+                } else if (particle[1] > 15){ //양호
 
                 }else{
 
