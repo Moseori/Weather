@@ -1,7 +1,9 @@
 package com.example.weather;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -18,6 +21,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 //42
 
@@ -27,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private String[] url = {"http://www.weather.go.kr/weather/observation/currentweather.jsp", "http://aqicn.org/city/seoul/kr/"};
     TextView tv_temp, tv_wind_chill, tv_humid, tv_find_dust, tv_particle;
     Elements elements;
+
+    int place =0;
     int[] particle = {0, 0};
     LinearLayout linearLayout;
 
@@ -49,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask();
                 jsoupAsyncTask.execute();
+
+                show();
             }
         });
 
@@ -71,6 +80,16 @@ public class MainActivity extends AppCompatActivity {
             try {
                 Connection.Response execute = Jsoup.connect(url[0]).execute();
                 Document doc = Jsoup.parse(execute.body());
+
+                switch (place){
+                    case 1:
+                        elements = doc.getElementsByClass("table_develop3").get(0).getElementsByTag("tr").get(43).getAllElements().get(0).getElementsByTag("td");
+                        break;
+                    case 2:
+                        elements = doc.getElementsByClass("table_develop3").get(0).getElementsByTag("tr").get(33).getAllElements().get(0).getElementsByTag("td");
+                        break;
+
+                }
 
                 elements = doc.getElementsByClass("table_develop3").get(0).getElementsByTag("tr").get(43).getAllElements().get(0).getElementsByTag("td");
 
@@ -143,5 +162,35 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    void show(){
+        final List<String> ListItems = new ArrayList<>();
+        ListItems.add("서울");
+        ListItems.add("부산");
+        ListItems.add("대구");
+        ListItems.add("ㅁ몰");
+        final CharSequence[] items =  ListItems.toArray(new String[ ListItems.size()]);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("AlertDialog Title");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int pos) {
+                String selectedText = items[pos].toString();
+
+                switch (selectedText){
+                    case "서울":
+                        place =1;
+                        break;
+
+                    case "부산":
+                        place =2;
+                        break;
+                }
+
+            }
+        });
+        builder.show();
+    }
+
 }
 
