@@ -108,52 +108,37 @@ public class MainActivity extends AppCompatActivity {
                 tv_find_dust.setText(particle[1]+"");
                 tv_particle.setText(particle[0]+"");
 
-                //매우나쁨
+                //나쁨
                 if (particle[0] >150){
-                    GradientDrawable g = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[] {Color.parseColor("#ff0844"),Color.parseColor("#ffb199")});
+
+
+
+                } else if (particle[0] > 80){  //보통
+
+                    GradientDrawable g = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[] {Color.BLUE,Color.GREEN});
                     g.setShape(GradientDrawable.RECTANGLE);
                     g.setCornerRadius(5);
                     linearLayout.setBackgroundDrawable(g);
-                    tv_particle.setText("매우나쁨");
-
-
-
-                } else if (particle[0] > 80){  //나쁨
-
-                    GradientDrawable g = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[] {Color.parseColor("#fa709a"),Color.parseColor("#fee140")});
-                    g.setShape(GradientDrawable.RECTANGLE);
-                    g.setCornerRadius(5);
-                    linearLayout.setBackgroundDrawable(g);
-                    tv_particle.setText("나쁨");
 
 
 
 
-                } else if (particle[0] > 30){ //보통 020 new life
-                    GradientDrawable g = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[] {Color.parseColor("#5ee7df"),Color.parseColor("#b490ca")});
-                    g.setShape(GradientDrawable.RECTANGLE);
-                    g.setCornerRadius(5);
-                    linearLayout.setBackgroundDrawable(g);
-                    tv_particle.setText("보통");
+                } else if (particle[0] > 30){ //양호
 
 
 
 
-                }else { // 양호
-                    GradientDrawable g = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {Color.parseColor("#43e97b"),Color.parseColor("#38f9d7")});
-                    g.setShape(GradientDrawable.RECTANGLE);
-                    g.setCornerRadius(5);
-                    linearLayout.setBackgroundDrawable(g);
-                    tv_particle.setText("양호");
+                }else{
+
                 }
-                if (particle[1] >75){ //매우나쁨
-                    tv_find_dust.setText("매우나쁨");
-                } else if (particle[1] > 35){ //나쁨
-                    tv_find_dust.setText("나쁨");
-                } else if (particle[1] > 15){ //보통
-                    tv_find_dust.setText("보통");
-                }else{//양호
-                    tv_find_dust.setText("양호");
+                if (particle[1] >75){ //나쁨
+
+                } else if (particle[1] > 35){ //보통
+
+                } else if (particle[1] > 15){ //양호
+
+                }else{
+
                 }
             }
         }
